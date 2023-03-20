@@ -1,2 +1,2 @@
 # mesto-ts
-Проект Mesto: портирование на TypeScript
+Проект Mesto: портирование на TypeScript1
