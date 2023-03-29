@@ -1,6 +1,6 @@
 # mesto-ts
 Проект Mesto: портирование на React+TypeScript
-Статус: ранняя стадия разработки
+* Статус: ранняя стадия разработки
 
 # Getting Started with Create React App
 
