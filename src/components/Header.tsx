@@ -1,10 +1,9 @@
-// import headerLogo from '../img/logo.svg';
+import  {FC} from "react";
 
-function Header () {
+const Header: FC = () => {
   return (
     <header className="header">
-      {/* <img src={ headerLogo } className="header__logo" alt="Логотип проекта Mesto" /> */}
-      <p className="header__logo">Виталий.Гаврилов</p>
+      <img src='logo.svg' className="header__logo" alt="Логотип проекта Mesto" />
     </header>
   )
 }
