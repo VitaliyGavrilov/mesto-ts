@@ -11,12 +11,11 @@ import PopupEditAvatar from './PopupEditAvatar';
 import PopupAddCard from './PopupAddCard';
 import ImagePopup from './PopupImage';
 import PopupDeleteCard from './PopupDeleteCard';
-
 // Основной компонент, который собирает приложение
 const App: FC = () => {
   // Cтейт-переменные:
-  const [currentUser, setCurrentUser] = useState<User>({name: '', about: '' , avatar: ''}); // Данные-текущие данные пользователя
-  const [selectedCard, setSelectedCard] = useState<CardEl>({_id: 0, name: '', link: '', likes: []}); //данные-Передача данных при увеличении изображения и удалении карточки
+  const [currentUser, setCurrentUser] = useState<User>({name: '', about: '' , avatar: '', _id: ''}); // Данные-текущие данные пользователя
+  const [selectedCard, setSelectedCard] = useState<CardEl>({_id: 0, name: '', link: '', likes: [{_id: ''}], owner: {_id:''}}); //данные-Передача данных при увеличении изображения и удалении карточки
   const [cards, setCards] = useState<CardEl[]>([]);// Данные-данные карточек
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState<boolean>(false); // попап-Редактирование профиля
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState<boolean>(false); // попап-Редактирование аватара
@@ -29,6 +28,7 @@ const App: FC = () => {
       .then(([userInfo, initialCards]) => { 
         setCurrentUser(userInfo); 
         setCards(initialCards); 
+        console.log(initialCards)
       }) 
       .catch((err) => { console.log(`Возникла ошибка при загрузке данных, ${err}`) }) 
   }, [])
@@ -79,7 +79,6 @@ const App: FC = () => {
       .then(() => { setCards((cardsArray) => cardsArray.filter((cardItem) => cardItem._id !== card._id)); closeAllPopups() })
       .catch((err) => { console.log(`Возникла ошибка при удалении карточки, ${err}`) })
   }
-
   // --Функция для закрытия всех попапов
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
@@ -87,6 +86,18 @@ const App: FC = () => {
     setIsAddPlacePopupOpen(false);
     setIsDeleteCardPopupOpen(false);
     setIsImagePopupOpen(false);
+  }
+  // --Лайки
+  // -Обработчик лайка
+  function handleCardLike(card: CardEl) {
+    // -Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    // -Отправляем запрос в API и получаем обновлённые данные карточки
+    api.changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      })
+      .catch((err) => { console.log(`Возникла ошибка при лайке, ${err}`) })
   }
   // Сборка приложения 
   return(
@@ -98,6 +109,7 @@ const App: FC = () => {
         openPopupAddcard = {handleAddPlaceClick}
         openPopupImg={handleCardClick}
         openPopupDeleteCard={handleDeleteCardClick}
+        likeClick={handleCardLike}
         userData = {currentUser}
         dataCards = {cards}
       />
