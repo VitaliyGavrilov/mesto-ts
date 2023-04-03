@@ -132,6 +132,8 @@ const App: FC = () => {
         <Route path='/about' 
           element={
             <PayMain
+              dataCard = {selectedCard}
+              dataUser= {currentUser} 
 
             />
           }>

@@ -6,60 +6,67 @@ import Card from './Card';
 import Profile from './Profile';
 import {Link, useNavigate} from 'react-router-dom'
 
-// interface MainProps {
-//   openPopupEditProfile: () => void
-//   openPopupEditAvatar: () => void
-//   openPopupAddcard: () => void
-//   openPopupImg: (card: CardEl) => void
-//   openPopupDeleteCard: (card: CardEl) => void
-//   openPopupBuyCard: (card: CardEl) => void
-//   userData: User
-//   dataCards: CardEl[]
-//   likeClick: (card: CardEl) => void
-// }
+interface PayMainProps {
+  dataCard: CardEl
+  dataUser: User
 
-// const Main:FC<MainProps> = ({openPopupEditProfile, openPopupBuyCard, userData, dataCards, openPopupEditAvatar, openPopupAddcard, openPopupImg, openPopupDeleteCard, likeClick}) => {
+}
 
-//   return (
-//     <main className="content">
-//       <Profile
-//         profileData = {userData}
-//         openPopupEditProfile = {openPopupEditProfile}
-//         openPopupEditAvatar = {openPopupEditAvatar}
-//         openPopupAddcard = {openPopupAddcard}
-//       />
-//       <section className="element">
-//       { dataCards.map((cardItem) => (
-//         < Card
-//           profileData = {userData}
-//           key = { cardItem._id }
-//           card = { cardItem } 
-//           openPopupImg = {openPopupImg}
-//           openPopupDeleteCard = {openPopupDeleteCard}
-//           openPopupBuyCard = {openPopupBuyCard}
-//           likeClick = {likeClick}
-//         />
-//         )) 
-//       }
-//       </section>
-
-//     </main>
-//   )
-// }
-// export default Main;
-
-const PayMain: FC = () => {
+const PayMain: FC<PayMainProps> = ({dataCard, dataUser}) => {
   return(
     <main className="content">
-      <div>
-        <a>Страница оплаты</a>
+
+      <menu>
+        <h1>Страница оплаты</h1>
         <Link to='/'>перейти</Link>
-      </div>
-    </main>
-    
-    
+      </menu>
+      <h2>Покупатель</h2>
+      <section className="profile">
+        <div className="profile__info">
+          <div className="profile__avatar-block">
+            <img className="profile__avatar" src={dataUser.avatar} alt="Аватар" />
+          </div>
+          <div className="profile__card">
+            <h1 className="profile__name">{dataUser.name}</h1>
+            <p className="profile__profession">{dataUser.about}</p>
+          </div>
+        </div>
+      </section>
+
+      <h2>Товар</h2>
+      <section className="profile">
+        <div className="profile__info">
+          <div className="profile__avatar-block">
+            <img className="profile__avatar" src={dataCard.link} alt="Аватар" />
+          </div>
+          <div className="profile__card">
+            <p>{dataCard.name}</p>
+            <h1 className="profile__name">{`Продавец: ${dataCard.owner.name},${dataCard.owner.about} `}</h1>
+            <p className="profile__profession">{`Цена: ${dataCard.likes.length > 0 ? dataCard.likes.length * 10 : 10} $`}</p>
+          </div>
+        </div>
+      </section>
+
   
-    
+
+      <section>
+        <h2>Карточка для оплаты</h2>
+        <div>
+          <h3>Данные карты оплаты</h3>
+          <div>
+            <form>
+              <fieldset>
+                <input type=''/>
+                <input/>
+                <input/>
+              </fieldset>
+              <button/>
+            </form>
+          </div>
+        </div>
+      </section>
+      
+    </main>
   )
 }
 export default PayMain
