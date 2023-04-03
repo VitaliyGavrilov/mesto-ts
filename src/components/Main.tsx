@@ -11,12 +11,13 @@ interface MainProps {
   openPopupAddcard: () => void
   openPopupImg: (card: CardEl) => void
   openPopupDeleteCard: (card: CardEl) => void
+  openPopupBuyCard: (card: CardEl) => void
   userData: User
   dataCards: CardEl[]
   likeClick: (card: CardEl) => void
 }
 
-const Main:FC<MainProps> = ({openPopupEditProfile, userData, dataCards, openPopupEditAvatar, openPopupAddcard, openPopupImg, openPopupDeleteCard, likeClick}) => {
+const Main:FC<MainProps> = ({openPopupEditProfile, openPopupBuyCard, userData, dataCards, openPopupEditAvatar, openPopupAddcard, openPopupImg, openPopupDeleteCard, likeClick}) => {
 
   return (
     <main className="content">
@@ -34,6 +35,7 @@ const Main:FC<MainProps> = ({openPopupEditProfile, userData, dataCards, openPopu
           card = { cardItem } 
           openPopupImg = {openPopupImg}
           openPopupDeleteCard = {openPopupDeleteCard}
+          openPopupBuyCard = {openPopupBuyCard}
           likeClick = {likeClick}
         />
         )) 

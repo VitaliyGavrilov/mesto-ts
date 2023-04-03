@@ -1,0 +1,16 @@
+.element__buy-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 18px;
+  height: 19px;
+  background-image: url("../../../img/cart-svgrepo-com.svg");
+  background-size: cover;
+  background-color: rgba(0, 0, 0, 0);
+  background-position: center;
+  border: none;
+  cursor: pointer;
+}
+.element__buy-button:hover {
+  opacity: 0.6;
+}

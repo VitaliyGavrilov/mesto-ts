@@ -11,24 +11,27 @@ import PopupEditAvatar from './PopupEditAvatar';
 import PopupAddCard from './PopupAddCard';
 import ImagePopup from './PopupImage';
 import PopupDeleteCard from './PopupDeleteCard';
+import PopupBuyCard from './PopupBuyCard';
+import {Route, Routes} from 'react-router-dom'
+import PayMain from './PayMain';
 // Основной компонент, который собирает приложение
 const App: FC = () => {
   // Cтейт-переменные:
   const [currentUser, setCurrentUser] = useState<User>({name: '', about: '' , avatar: '', _id: ''}); // Данные-текущие данные пользователя
-  const [selectedCard, setSelectedCard] = useState<CardEl>({_id: 0, name: '', link: '', likes: [{_id: ''}], owner: {_id:''}}); //данные-Передача данных при увеличении изображения и удалении карточки
+  const [selectedCard, setSelectedCard] = useState<CardEl>({_id: 0, name: '', link: '', likes: [{_id: ''}], owner: {_id:'', name: '', about: ''}}); //данные-Передача данных при увеличении изображения, удалении карточки и покупке карточки
   const [cards, setCards] = useState<CardEl[]>([]);// Данные-данные карточек
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState<boolean>(false); // попап-Редактирование профиля
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState<boolean>(false); // попап-Редактирование аватара
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState<boolean>(false); // попап-Добавление карточки
   const [isImagePopupOpen, setIsImagePopupOpen] = useState<boolean>(false); // попап-Увеличение изображения
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState<boolean>(false); // попап-Удаление карточки 
+  const [isBuyCardPopupOpen, setIsBuyCardPopupOpen] = useState<boolean>(false); // попап-Покупка карточки 
   // ---Запрос на получение данных пользователя и карточек 
   useEffect(() => { 
     Promise.all([api.getUserInfo(), api.getInitialCards()]) 
       .then(([userInfo, initialCards]) => { 
         setCurrentUser(userInfo); 
         setCards(initialCards); 
-        console.log(initialCards)
       }) 
       .catch((err) => { console.log(`Возникла ошибка при загрузке данных, ${err}`) }) 
   }, [])
@@ -70,7 +73,6 @@ const App: FC = () => {
   // -Обработчик открытия попапа удаления карточки
   function handleDeleteCardClick(card: CardEl) {
     setIsDeleteCardPopupOpen(true);
-    // setDeleteCard({ card })
     setSelectedCard(card)
   }
   // -Обработчик удаления карточки
@@ -79,6 +81,12 @@ const App: FC = () => {
       .then(() => { setCards((cardsArray) => cardsArray.filter((cardItem) => cardItem._id !== card._id)); closeAllPopups() })
       .catch((err) => { console.log(`Возникла ошибка при удалении карточки, ${err}`) })
   }
+  // --ПОПАП-Покупки карточки
+  // -Обработчик открытия попапа покупки
+  function handleBuyCardClick(card: CardEl) {
+    setIsBuyCardPopupOpen(true);
+    setSelectedCard(card)
+  }
   // --Функция для закрытия всех попапов
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
@@ -86,6 +94,7 @@ const App: FC = () => {
     setIsAddPlacePopupOpen(false);
     setIsDeleteCardPopupOpen(false);
     setIsImagePopupOpen(false);
+    setIsBuyCardPopupOpen(false);
   }
   // --Лайки
   // -Обработчик лайка
@@ -103,16 +112,32 @@ const App: FC = () => {
   return(
     <div className="page">
       <Header/>
-      <Main
-        openPopupEditProfile = {handleEditProfileClick}
-        openPopupEditAvatar = {handleEditAvatarClick}
-        openPopupAddcard = {handleAddPlaceClick}
-        openPopupImg={handleCardClick}
-        openPopupDeleteCard={handleDeleteCardClick}
-        likeClick={handleCardLike}
-        userData = {currentUser}
-        dataCards = {cards}
-      />
+
+      <Routes>
+        <Route path='/' 
+          element={
+            <Main
+              openPopupEditProfile = {handleEditProfileClick}
+              openPopupEditAvatar = {handleEditAvatarClick}
+              openPopupAddcard = {handleAddPlaceClick}
+              openPopupImg={handleCardClick}
+              openPopupDeleteCard={handleDeleteCardClick}
+              openPopupBuyCard={handleBuyCardClick}
+              likeClick={handleCardLike}
+              userData = {currentUser}
+              dataCards = {cards}
+            />
+         }>
+        </Route>
+        <Route path='/about' 
+          element={
+            <PayMain
+
+            />
+          }>
+        </Route>
+      </Routes>
+      
       <Footer/>
       <PopupEditProfile
         isOpen = {isEditProfilePopupOpen}
@@ -140,6 +165,11 @@ const App: FC = () => {
         isOpen = {isDeleteCardPopupOpen}
         onClose ={closeAllPopups}
         submit = {handleCardDelete}
+        data = {selectedCard}
+      />
+      <PopupBuyCard
+        isOpen = {isBuyCardPopupOpen}
+        onClose ={closeAllPopups}
         data = {selectedCard}
       />
     </div>

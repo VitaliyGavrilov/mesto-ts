@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { BaseSyntheticEvent, FC } from 'react';
 import { ClassElement } from 'typescript';
 
 interface PopupWithFormpProps {
@@ -6,15 +6,17 @@ interface PopupWithFormpProps {
   onClose: () => void
   title: string
   name: string
-  onSubmit: (e: any) => void
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   children: React.ReactNode
   submitBtnText: string
 }
 const PopupWithForm:FC<PopupWithFormpProps> = ({isOpen, title, name, children, submitBtnText, onClose, onSubmit }) => {
-  const clikOverlay = (e: any) => {
+
+  const clikOverlay = (e: BaseSyntheticEvent) => {
     if(e.target.classList.contains('popup')) {
       onClose()
     }
+    // console.log(e)
   }
   
   return (

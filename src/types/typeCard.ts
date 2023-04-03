@@ -3,9 +3,15 @@ export default interface CardEl {
   name: string//имя карточки
   link: string//ссылка на изображение
   likes: [Id]//массив id пользователей поставивщих лайк
-  owner: Id//id создателя карточки 
+  owner: dataOwner//данные создателя карточки 
 }
 
-interface Id {
+type dataOwner = {
+  _id: string// id создателя карточки
+  name: string// имя создателя карточки 
+  about: string// второе имя создателя
+}
+
+type Id = {
   _id: string
 }
