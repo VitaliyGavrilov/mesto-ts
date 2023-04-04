@@ -13,13 +13,13 @@ interface PayMainProps {
 }
 
 const PayMain: FC<PayMainProps> = ({dataCard, dataUser}) => {
+  const maxLengthCVV: number = 3
+  const minLengthCVV: number = 3
   return(
     <main className="content">
 
-      <menu>
-        <h1>Страница оплаты</h1>
-        <Link to='/'>перейти</Link>
-      </menu>
+      
+
       <h2>Покупатель</h2>
       <section className="profile">
         <div className="profile__info">
@@ -40,8 +40,7 @@ const PayMain: FC<PayMainProps> = ({dataCard, dataUser}) => {
             <img className="profile__avatar" src={dataCard.link} alt="Аватар" />
           </div>
           <div className="profile__card">
-            <p>{dataCard.name}</p>
-            <h1 className="profile__name">{`Продавец: ${dataCard.owner.name},${dataCard.owner.about} `}</h1>
+            <h1 className="profile__name">{dataCard.name}</h1>
             <p className="profile__profession">{`Цена: ${dataCard.likes.length > 0 ? dataCard.likes.length * 10 : 10} $`}</p>
           </div>
         </div>
@@ -56,11 +55,12 @@ const PayMain: FC<PayMainProps> = ({dataCard, dataUser}) => {
           <div>
             <form>
               <fieldset>
-                <input type=''/>
-                <input/>
-                <input/>
+                <input type="text" inputMode="numeric" placeholder="Номер карты"/>
+                <input type='text' placeholder="Имя владельца"/>
+                <input type='month'placeholder="Меясц/год"/>
+                <input type='text'placeholder="CVV" maxLength={maxLengthCVV} minLength={minLengthCVV}/>
               </fieldset>
-              <button/>
+              <button>Оплатить</button>
             </form>
           </div>
         </div>

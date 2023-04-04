@@ -10,6 +10,7 @@ type dataOwner = {
   _id: string// id создателя карточки
   name: string// имя создателя карточки 
   about: string// второе имя создателя
+  avatar: string// ссылка на аватар создателя
 }
 
 type Id = {

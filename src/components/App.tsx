@@ -12,13 +12,13 @@ import PopupAddCard from './PopupAddCard';
 import ImagePopup from './PopupImage';
 import PopupDeleteCard from './PopupDeleteCard';
 import PopupBuyCard from './PopupBuyCard';
-import {Route, Routes} from 'react-router-dom'
+import {Route, Routes, Link} from 'react-router-dom'
 import PayMain from './PayMain';
 // Основной компонент, который собирает приложение
 const App: FC = () => {
   // Cтейт-переменные:
   const [currentUser, setCurrentUser] = useState<User>({name: '', about: '' , avatar: '', _id: ''}); // Данные-текущие данные пользователя
-  const [selectedCard, setSelectedCard] = useState<CardEl>({_id: 0, name: '', link: '', likes: [{_id: ''}], owner: {_id:'', name: '', about: ''}}); //данные-Передача данных при увеличении изображения, удалении карточки и покупке карточки
+  const [selectedCard, setSelectedCard] = useState<CardEl>({_id: 0, name: '', link: '', likes: [{_id: ''}], owner: {_id:'', name: '', about: '', avatar: ''}}); //данные-Передача данных при увеличении изображения, удалении карточки и покупке карточки
   const [cards, setCards] = useState<CardEl[]>([]);// Данные-данные карточек
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState<boolean>(false); // попап-Редактирование профиля
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState<boolean>(false); // попап-Редактирование аватара
@@ -32,6 +32,7 @@ const App: FC = () => {
       .then(([userInfo, initialCards]) => { 
         setCurrentUser(userInfo); 
         setCards(initialCards); 
+        console.log(initialCards)
       }) 
       .catch((err) => { console.log(`Возникла ошибка при загрузке данных, ${err}`) }) 
   }, [])
@@ -112,6 +113,11 @@ const App: FC = () => {
   return(
     <div className="page">
       <Header/>
+      <menu className='menu'>
+        <Link className='menu_link' to='/'>Карточки</Link>
+        <Link className='menu_link' to='/about'>Оплата</Link>
+        <p>Будет история платежей</p>
+      </menu>
 
       <Routes>
         <Route path='/' 
