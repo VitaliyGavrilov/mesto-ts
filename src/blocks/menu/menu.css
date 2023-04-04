@@ -1,7 +1,7 @@
 .menu {  
   max-width: 880px;
-  margin: 0 auto 40px auto;
-  padding: 45px 0 41px 0;
+  margin: 0 auto 0 auto;
+  padding: 0;
   display: flex;
   justify-content: space-around;
 }
@@ -12,4 +12,58 @@
     padding-bottom: 31.6px;
     margin-bottom: 42px;
   }
+}
+
+.order {
+  max-width: 880px;
+  margin: 0 auto 40px auto;
+  padding: 45px 0 41px 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+.order__card {
+  display: flex;
+  flex-direction: column;
+  max-width: 282px;
+  margin: 0;
+  padding: 0 10px 0 10px;
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  align-items: center;
+}
+
+.order__avatar {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+}
+
+
+.payment {
+  max-width: 880px;
+  margin: 20px auto 20px auto;
+  padding: 0;
+}
+
+.payment__card {
+  width: 350px;
+  height: 200px;
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+  margin: 0 auto 0 auto;
+  padding: 10px;
+}
+
+.payment__fieldset {
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }

@@ -17,52 +17,41 @@ const PayMain: FC<PayMainProps> = ({dataCard, dataUser}) => {
   const minLengthCVV: number = 3
   return(
     <main className="content">
-
       
+      <section className="order">
 
-      <h2>Покупатель</h2>
-      <section className="profile">
-        <div className="profile__info">
-          <div className="profile__avatar-block">
-            <img className="profile__avatar" src={dataUser.avatar} alt="Аватар" />
-          </div>
-          <div className="profile__card">
-            <h1 className="profile__name">{dataUser.name}</h1>
-            <p className="profile__profession">{dataUser.about}</p>
-          </div>
+        <div className="order__card">
+          <h2 className='order__title'>Покупатель</h2>
+          <img className="order__avatar" src={dataUser.avatar} alt="Аватар" />
+          <h3 className="order__name">{dataUser.name}</h3>
+          <p className="order__profession">{dataUser.about}</p>
         </div>
+        <div className="order__card">
+          <h2 className='order__title'>Товар</h2>
+          <img className="order__avatar" src={dataCard.link} alt="Аватар" />
+          <h3 className="order__name">{dataCard.name}</h3>
+          <p className="order__price">{`${dataCard.likes.length > 0 ? dataCard.likes.length * 10 : 10} $`}</p>
+        </div>
+        <div className="order__card">
+          <h2 className='order__title'>Продавец</h2>
+          <img className="order__avatar" src={dataCard.owner.avatar} alt="Аватар" />
+          <h3 className="order__name">{dataCard.owner.name}</h3>
+          <p className="order__profession">{dataCard.owner.about}</p>
+        </div>
+
       </section>
 
-      <h2>Товар</h2>
-      <section className="profile">
-        <div className="profile__info">
-          <div className="profile__avatar-block">
-            <img className="profile__avatar" src={dataCard.link} alt="Аватар" />
-          </div>
-          <div className="profile__card">
-            <h1 className="profile__name">{dataCard.name}</h1>
-            <p className="profile__profession">{`Цена: ${dataCard.likes.length > 0 ? dataCard.likes.length * 10 : 10} $`}</p>
-          </div>
-        </div>
-      </section>
-
-  
-
-      <section>
-        <h2>Карточка для оплаты</h2>
-        <div>
-          <h3>Данные карты оплаты</h3>
-          <div>
-            <form>
-              <fieldset>
-                <input type="text" inputMode="numeric" placeholder="Номер карты"/>
-                <input type='text' placeholder="Имя владельца"/>
-                <input type='month'placeholder="Меясц/год"/>
-                <input type='text'placeholder="CVV" maxLength={maxLengthCVV} minLength={minLengthCVV}/>
-              </fieldset>
-              <button>Оплатить</button>
-            </form>
-          </div>
+      <section className='payment'>
+        <div className='payment__card'>
+          <form>
+            <fieldset className='payment__fieldset'>
+              <input type="text" pattern='[0-9]{16}' placeholder="Номер карты"/>
+              <input type='text' placeholder="Имя владельца"/>
+              <input type='month'placeholder="Меясц/год"/>
+              <input type='text'placeholder="CVV" maxLength={maxLengthCVV} minLength={minLengthCVV}/>
+            </fieldset>
+            <button>Оплатить</button>
+          </form>
         </div>
       </section>
       
