@@ -7,17 +7,14 @@ interface PopupBuyCardProps {
   isOpen: boolean
   onClose: () => void
   data: CardEl
-  // submit: (card: CardEl) => void
+  selectedProduct: (bo: boolean) => void
 }
 
-const PopupBuyCard: FC<PopupBuyCardProps> = ({isOpen, onClose, data}) => {
-  // function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
-  //   evt.preventDefault();
-  //   submit(data);
-  // }
+const PopupBuyCard: FC<PopupBuyCardProps> = ({isOpen, onClose, data, selectedProduct}) => {
   const navigate = useNavigate();
   const payPage = () => {
     onClose()
+    selectedProduct(true)
     navigate(`/about`);
   };
   

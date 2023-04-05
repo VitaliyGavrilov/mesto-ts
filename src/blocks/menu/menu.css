@@ -57,6 +57,7 @@
   border-radius: 10px;
   margin: 0 auto 0 auto;
   padding: 10px;
+
 }
 
 .payment__fieldset {
@@ -66,4 +67,31 @@
   margin: 0;
   padding: 0;
   width: 100%;
+}
+
+.orders {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(6, 140px);
+  justify-content: center;
+  column-gap: 17px;
+  row-gap: 20px;
+}
+
+.table {
+  margin: 0 auto 0 auto;
+  padding: 0;
+  border: 1px white solid;
+}
+
+.no-product {
+  margin: 50px auto 0 auto;
+  padding: 0;
+  text-align: center;
+}
+
+.str{
+  border: 1px white solid;
 }

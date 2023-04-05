@@ -14,9 +14,15 @@ import PopupDeleteCard from './PopupDeleteCard';
 import PopupBuyCard from './PopupBuyCard';
 import {Route, Routes, Link} from 'react-router-dom'
 import PayMain from './PayMain';
+import PaymentCard from '../types/typeDataPaymentCard';
+import Payment from '../types/typeDataPaymentCard';
+import HistoryMain from './HistoryMain';
 // Основной компонент, который собирает приложение
 const App: FC = () => {
   // Cтейт-переменные:
+  const [isSelectedProduct, setIsSelectedProduct] = useState<boolean>(false);
+  // const [paymentCard, setPaymentCard] = useState<PaymentCard[]>([]); // Данные-карты оплаты
+  const [paymentHistory, setPaymentHistory] = useState<Payment[]>([])// данные-история платежей
   const [currentUser, setCurrentUser] = useState<User>({name: '', about: '' , avatar: '', _id: ''}); // Данные-текущие данные пользователя
   const [selectedCard, setSelectedCard] = useState<CardEl>({_id: 0, name: '', link: '', likes: [{_id: ''}], owner: {_id:'', name: '', about: '', avatar: ''}}); //данные-Передача данных при увеличении изображения, удалении карточки и покупке карточки
   const [cards, setCards] = useState<CardEl[]>([]);// Данные-данные карточек
@@ -109,6 +115,16 @@ const App: FC = () => {
       })
       .catch((err) => { console.log(`Возникла ошибка при лайке, ${err}`) })
   }
+
+  // --Оплата
+  // -Обработчик оплаты карточки
+  function handlePayCard (order: Payment) {
+    setPaymentHistory([...paymentHistory ,order]);
+    setIsSelectedProduct(false)
+    console.log(paymentHistory);
+  }
+
+
   // Сборка приложения 
   return(
     <div className="page">
@@ -116,7 +132,7 @@ const App: FC = () => {
       <menu className='menu'>
         <Link className='menu_link' to='/'>Карточки</Link>
         <Link className='menu_link' to='/about'>Оплата</Link>
-        <p>Будет история платежей</p>
+        <Link className='menu_link' to='/history'>История</Link>
       </menu>
 
       <Routes>
@@ -132,6 +148,7 @@ const App: FC = () => {
               likeClick={handleCardLike}
               userData = {currentUser}
               dataCards = {cards}
+              
             />
          }>
         </Route>
@@ -140,7 +157,15 @@ const App: FC = () => {
             <PayMain
               dataCard = {selectedCard}
               dataUser= {currentUser} 
-
+              submit={handlePayCard}
+              isSelectedProduct={isSelectedProduct}
+            />
+          }>
+        </Route>
+        <Route path='/history' 
+          element={
+            <HistoryMain
+              orders={paymentHistory}
             />
           }>
         </Route>
@@ -179,6 +204,7 @@ const App: FC = () => {
         isOpen = {isBuyCardPopupOpen}
         onClose ={closeAllPopups}
         data = {selectedCard}
+        selectedProduct = {setIsSelectedProduct}
       />
     </div>
   )
