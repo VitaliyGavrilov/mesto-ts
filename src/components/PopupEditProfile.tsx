@@ -2,6 +2,7 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 import User from '../types/typeCurrentUser';
 import PopupWithForm from './PopupWithForm';
 import PopupSubmitProps from '../types/typePopupProps';
+import { withValidation } from '../utils/validate/Higher-OrderComponents/withValidation';
 
 
 
@@ -32,14 +33,14 @@ const PopupEditProfile: FC<PopupSubmitProps> =({isOpen, onClose, submit, userDat
       name='edit-profile'
       title='Редактировать профиль'>
       <input className="popup__input popup__input_data_name"
-        value={name || ''} onChange={handleName}
+        value={name || ''} onChange={handleName} minLength={2} maxLength={20}
         type="text" name="name" id="name" placeholder="Имя" autoComplete="off"  required />
       <span className="popup__input-error" id="name-error"></span>
       <input className="popup__input popup__input_data_profession"
-        value={description || ''} onChange={handleDescription}
+        value={description || ''} onChange={handleDescription} minLength={2} maxLength={30}
         type="text" name="profession" id="profesion" placeholder="Вид деятельности" autoComplete="off"  required />
       <span className="popup__input-error" id="profesion-error"></span>
     </PopupWithForm>
   )
 }
-export default PopupEditProfile;
+export default withValidation('edit-profile')(PopupEditProfile);

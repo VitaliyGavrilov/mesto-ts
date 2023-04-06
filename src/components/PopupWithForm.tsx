@@ -23,7 +23,8 @@ const PopupWithForm:FC<PopupWithFormpProps> = ({isOpen, title, name, children, s
     <div className={`popup ${isOpen && 'popup_opened'}`} onClick={clikOverlay}>
       <div className="popup__container">
         <h2 className="popup__title">{title}</h2>
-        <form className="popup__form" name={`form-${name}`}  id={`form-${name}`} onSubmit={onSubmit} >
+        {/* <form className="popup__form" name={`form-${name}`}  id={`form-${name}`} onSubmit={onSubmit} > */}
+        <form className="popup__form" name={name}  id={`form-${name}`} onSubmit={onSubmit} >
           <fieldset className="popup__fieldset">
             {children}
           </fieldset>
