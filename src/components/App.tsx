@@ -136,39 +136,32 @@ const App: FC = () => {
       </menu>
 
       <Routes>
-        <Route path='/' 
-          element={
-            <Main
-              openPopupEditProfile = {handleEditProfileClick}
-              openPopupEditAvatar = {handleEditAvatarClick}
-              openPopupAddcard = {handleAddPlaceClick}
-              openPopupImg={handleCardClick}
-              openPopupDeleteCard={handleDeleteCardClick}
-              openPopupBuyCard={handleBuyCardClick}
-              likeClick={handleCardLike}
-              userData = {currentUser}
-              dataCards = {cards}
-              
-            />
-         }>
-        </Route>
-        <Route path='/about' 
-          element={
-            <PayMain
-              dataCard = {selectedCard}
-              dataUser= {currentUser} 
-              submit={handlePayCard}
-              isSelectedProduct={isSelectedProduct}
-            />
-          }>
-        </Route>
-        <Route path='/history' 
-          element={
-            <HistoryMain
-              orders={paymentHistory}
-            />
-          }>
-        </Route>
+        <Route path='/' element={
+          <Main
+            openPopupEditProfile = {handleEditProfileClick}
+            openPopupEditAvatar = {handleEditAvatarClick}
+            openPopupAddcard = {handleAddPlaceClick}
+            openPopupImg={handleCardClick}
+            openPopupDeleteCard={handleDeleteCardClick}
+            openPopupBuyCard={handleBuyCardClick}
+            likeClick={handleCardLike}
+            userData = {currentUser}
+            dataCards = {cards}/>
+          }
+        />
+        <Route path='/about' element={
+          <PayMain
+            dataCard = {selectedCard}
+            dataUser= {currentUser} 
+            submit={handlePayCard}
+            isSelectedProduct={isSelectedProduct}/>
+          }
+        />
+        <Route path='/history' element={
+          <HistoryMain
+            orders={paymentHistory}/>
+          }
+        />
       </Routes>
       
       <Footer/>
